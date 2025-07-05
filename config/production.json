@@ -1,0 +1,12 @@
+{
+  "name": "Bole_subcity",
+
+  "database": {
+    "logging": false,
+    "port": "3306",
+    "host": "10.180.50.214",
+    "user": "investinoromia",
+    "password": "investin@oromia",
+    "name": "oromia_investment"
+  }
+}

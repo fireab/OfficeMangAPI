@@ -1,0 +1,27 @@
+{
+  "name": "Bole_subcity",
+  "app": {
+    "version": "v1",
+    "port": 8090,
+    "system": {
+      "default": {
+        "locale": "EN"
+      }
+    }
+  },
+  "logger": {
+    "winston": {
+      "silent": false
+    }
+  },
+  "security": {
+    "jwt": {
+      "secret": "THIS_IS_THE_SECERT_KEY",
+      "expires": "30d"
+    },
+    "hash": {
+      "saltRound": 10
+    }
+  }
+
+}

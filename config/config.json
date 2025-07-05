@@ -1,0 +1,27 @@
+{
+  "development": {
+    "username": "root",
+    "password": "root",
+    "database": "desktop",
+    "host": "localhost",
+    "port": "3306",
+    "dialect": "mysql",
+    "seederStorage": "json"
+  },
+  "test": {
+    "username": "",
+    "password": "",
+    "database": "",
+    "host": "",
+    "dialect": "mysql",
+    "seederStorage": "json"
+  },
+  "production": {
+    "username": "",
+    "password": "",
+    "database": "",
+    "host": "",
+    "dialect": "mysql",
+    "seederStorage": "json"
+  }
+}
