@@ -28,9 +28,9 @@ class EmployeeService {
   ): Promise<Employee[]> {
     return new Promise((resolve, reject) => {
       Employee.findAll({
-        where:query,
-        order:order,
-        include:includes
+        where: query,
+        order: order,
+        include: includes,
       })
         .then((result: Employee[]) => resolve(result))
         .catch((error: any) => reject(error));
@@ -53,13 +53,11 @@ class EmployeeService {
   ): Promise<Employee> {
     return new Promise((resolve, reject) => {
       Employee.findOne({
-        where:query
+        where: query,
       })
         .then((result: Employee) => {
           if (!result) {
-            reject(
-              new BadRequestError([{ messages: "EmployeeNot Found"}])
-            );
+            reject(new BadRequestError([{ messages: "EmployeeNot Found" }]));
           } else {
             resolve(result);
           }
@@ -74,18 +72,21 @@ class EmployeeService {
    * @param transaction
    * @returns
    */
-  static create(body: {
-    amharic_name:string,
-    oromic_name:string,
-    oromic_position:string,
-    path:string|null,
-    position:string,
-    office:string,
-  }, transaction?: Transaction): Promise<Employee> {
+  static create(
+    body: {
+      amharic_name: string;
+      oromic_name: string;
+      oromic_position: string;
+      path: string | null;
+      position: string;
+      office: string;
+    },
+    transaction?: Transaction
+  ): Promise<Employee> {
     return new Promise((resolve, reject) => {
       async.waterfall(
         [
-          ( done: Function) => {
+          (done: Function) => {
             Employee.create(body)
               .then((result: Employee) => resolve(result))
               .catch((error: any) => reject(new BadRequestError(error)));
@@ -103,7 +104,7 @@ class EmployeeService {
     query: any,
     order: any,
     page: number,
-    limit: number,
+    limit: number
   ): Promise<{
     data: any[];
     metadata: {
@@ -116,27 +117,28 @@ class EmployeeService {
     };
   }> {
     return new Promise(async (resolve, reject) => {
-      console.log("Find MANY Paginate",query)
-      let count:number=await Employee.count({where:query});
+      console.log("Find MANY Paginate", query);
+      let count: number = await Employee.count({ where: query });
       Employee.findAll({
         where: query,
+        include: ["position"],
         limit: limit,
         offset: (page - 1) * limit,
         order: order,
       })
-        .then((result: Employee[]) => resolve(
-          {
+        .then((result: Employee[]) =>
+          resolve({
             data: result,
             metadata: {
               pagination: {
                 page: page,
                 limit: limit,
                 numberOfPages: Math.ceil(count / limit),
-                numberOfResults:count ,
-              }
-            }
-        }
-        ))
+                numberOfResults: count,
+              },
+            },
+          })
+        )
         .catch((error: any) => reject(error));
     });
   }
@@ -158,12 +160,13 @@ class EmployeeService {
         [
           (done: Function) => {
             this.findOne(query, [], [])
-              .then((employee) => done(null,employee))
+              .then((employee) => done(null, employee))
               .catch((error: Error) => done(error));
           },
-          (employee:Employee,done: Function) => {
+          (employee: Employee, done: Function) => {
             delete body.id;
-            employee.update(body)
+            employee
+              .update(body)
               .then((result: Employee) => resolve(result))
               .catch((error: any) => done(new InternalServerError(error)));
           },

@@ -1,17 +1,17 @@
 import { v4 as uuidv4 } from "uuid";
 import { Sequelize, Model, DataTypes } from "sequelize";
+import { Position } from "./position.mode";
 export class Employee extends Model {
   public id!: number;
   public team_id!: number;
   public amharic_name!: string;
   public oromic_name!: string;
   public english_name!: string;
-  public oromic_position!: string;
   public path!: string;
-  public position!: string;
-  public english_position!: string;
   public office!: string;
   public is_director!: boolean;
+  public position_id!: number;
+  public postion: Position;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 }
@@ -19,41 +19,35 @@ export class Employee extends Model {
 export default (sequelize: Sequelize) => {
   Employee.init(
     {
-      id:{
-        type:DataTypes.INTEGER,
-        autoIncrement:false,
-        primaryKey:true
+      id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: false,
+        primaryKey: true,
       },
-      team_id:{
-        type:DataTypes.INTEGER,
+      team_id: {
+        type: DataTypes.INTEGER,
       },
-      amharic_name:{
-        type:DataTypes.STRING,
+      amharic_name: {
+        type: DataTypes.STRING,
       },
-      oromic_name:{
-        type:DataTypes.STRING,
+      oromic_name: {
+        type: DataTypes.STRING,
       },
-      english_name:{
-        type:DataTypes.STRING,
+      english_name: {
+        type: DataTypes.STRING,
       },
-      oromic_position:{
-        type:DataTypes.STRING,
+      path: {
+        type: DataTypes.STRING,
       },
-      path:{
-        type:DataTypes.STRING,
+      office: {
+        type: DataTypes.STRING,
       },
-      position:{
-        type:DataTypes.STRING,
+      is_director: {
+        type: DataTypes.BOOLEAN,
       },
-      english_position:{
-        type:DataTypes.STRING,
+      position_id: {
+        type: DataTypes.INTEGER,
       },
-      office:{
-        type:DataTypes.STRING,
-      },
-      is_director:{
-        type:DataTypes.BOOLEAN
-      }
     },
     {
       sequelize,
