@@ -106,3 +106,4 @@ dist/
 
 # Sequelize
 sequelize-data.json
+audios/

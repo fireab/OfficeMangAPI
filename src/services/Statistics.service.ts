@@ -9,29 +9,31 @@ import {
   InternalServerError,
   NotFoundError,
 } from "../errors/Errors";
-import { Employee, Rate ,sequelize } from "../helpers/database/Sequelize";
+import { Employee, Rate, sequelize } from "../helpers/database/Sequelize";
 import { Transaction } from "sequelize/types";
 import { resolve } from "path";
 import { response } from "express";
-import { calculateAverageRating, getTop10ByAverage } from "../helpers/averageCalculator";
-export interface Ratee{
-    CustomerService: number|null
-    Excellent: number|null,
-    Intermediate:number|null,
-    VeryGood: number|null,
-    Good: number|null
-    Bad: number|null
-
+import {
+  calculateAverageRating,
+  getTop10ByAverage,
+} from "../helpers/averageCalculator";
+import { Position } from "../models/position.mode";
+export interface Ratee {
+  CustomerService: number | null;
+  Excellent: number | null;
+  Intermediate: number | null;
+  VeryGood: number | null;
+  Good: number | null;
+  Bad: number | null;
 }
 class StatisticsService {
-    static findTopRatedEmployees(query:any):Promise<any>{
-        return new Promise(async (resolve,reject)=>{
-            
-              const results = Rate.findAll({
-                attributes: [
-                  'EmployeeId',
-                  [
-                    sequelize.literal(`
+  static findTopRatedEmployees(query: any): Promise<any> {
+    return new Promise(async (resolve, reject) => {
+      const results = Rate.findAll({
+        attributes: [
+          "EmployeeId",
+          [
+            sequelize.literal(`
                       AVG(
                         CASE CustomerService
                           WHEN 'Excellent' THEN 4
@@ -75,166 +77,200 @@ class StatisticsService {
                         END
                       ) / 5
                     `),
-                    'averageScore',
-                  ],
-                ],
-                group: ['EmployeeId'],
-                order: [
-                  [sequelize.literal('averageScore'), 'DESC'], // Order by average score
-                  ['EmployeeId', 'ASC'], // Secondary order to handle ties
-                ],
-                where: query,
-                include: [Employee],
-            });
-              console.log("Result ",result)
-              resolve(results);
-        });
-    }
-    static  findAllRateInNumber(year?:number):Promise<{
-        CustomerService: Ratee,
-        StandardService:Ratee,
-        FairService:Ratee,
-        ResponseForCompliment:Ratee,
-        ServiceRate:Ratee
-    
-    }>{
-        return new Promise(async (resolve,reject)=>{
-            
-        try {
-            year=year?year:new Date().getFullYear();
-            
-            const groupedCustomerService = await Rate.findAll({
-                where:{year:year},
-                attributes: [
-                    [sequelize.col('CustomerService'), 'type'],
-                    'year',
-                    [sequelize.fn('COUNT', sequelize.col('CustomerService')), 'count']
-                ],
-                group: ['CustomerService'],
-                raw: true,
-            });
-            const groupedStandardService = await Rate.findAll({
-                where:{year:year},
-                attributes: [
-                    [sequelize.col('StandardService'), 'type'],
-                    'year',
-                    [sequelize.fn('COUNT', sequelize.col('StandardService')), 'count']
-                ],
-                group: ['StandardService'],
-                raw: true,
-            });
-            const groupedFairService = await Rate.findAll({
-                where:{year:year},
-                attributes: [
-                    [sequelize.col('FairService'), 'type'],
-                    'year',
-                    [sequelize.fn('COUNT', sequelize.col('FairService')), 'count']
-                ],
-                group: ['FairService'],
-                raw: true,
-            });
-            const groupedResponseForCompliment = await Rate.findAll({
-                where:{year:year},
-                attributes: [
-                    [sequelize.col('ResponseForCompliment'), 'type'],
-                    'year',
-                    [sequelize.fn('COUNT', sequelize.col('ResponseForCompliment')), 'count']
-                ],
-                group: ['ResponseForCompliment'],
-                raw: true,
-            });
-            const groupedServiceRate = await Rate.findAll({
-                where:{year:year},
-                attributes: [
-                    [sequelize.col('ServiceRate'), 'type'],
-                    'year',
-                    [sequelize.fn('COUNT', sequelize.col('ServiceRate')), 'count']
-                ],
-                group: ['ServiceRate'],
-                raw: true,
-            });
-
-            resolve({
-                CustomerService:this.transformArrayToObject(groupedCustomerService),
-                StandardService:this.transformArrayToObject(groupedStandardService),
-                FairService:this.transformArrayToObject(groupedFairService),
-                ResponseForCompliment:this.transformArrayToObject(groupedResponseForCompliment),
-                ServiceRate:this.transformArrayToObject(groupedServiceRate)
-            });
-            // console.log(groupedCustomerService);
-        } catch (error) {
-            console.error('Error fetching grouped CustomerService:', error);
-            reject(error)
-        }
-        })
-        
-    }
-    static  findAllRateInNumberForEmployee(query:any,year?:number,){
-        return new Promise(async (resolve,reject)=>{
-            
-        try {
-            year=year?year:new Date().getFullYear();
-            type ServiceCount={
-                Bad: number|null,
-                Good: number|null,
-                VeryGood: number|null,
-                Excellent: number|null
-            };
-            console.log("Employee_id",query)
-            let groupedCustomerService = await this.groupFinder("CustomerService",year,query);
-            let groupedStandardService = await this.groupFinder("StandardService",year,query)
-            let groupedFairService =  await this.groupFinder("FairService",year,query)
-            let groupedResponseForCompliment =  await this.groupFinder("ResponseForCompliment",year,query)
-            let groupedServiceRate = await  await this.groupFinder("ServiceRate",year,query)
-
-            let CustomerService :ServiceCount =this.transformArrayToObject(groupedCustomerService);
-            let StandardService :ServiceCount =this.transformArrayToObject( groupedStandardService);
-            let FairService:ServiceCount =this.transformArrayToObject( groupedFairService);
-            let ResponseForCompliment:ServiceCount =this.transformArrayToObject(groupedResponseForCompliment );
-            let ServiceRate:ServiceCount =this.transformArrayToObject(groupedServiceRate );
-            resolve({
-                CustomerService:CustomerService,
-                StandardService:StandardService,
-                FairService:FairService,
-                ResponseForCompliment:ResponseForCompliment,
-                ServiceRate:ServiceRate
-            });
-            console.log(groupedCustomerService);
-        } catch (error) {
-            console.error('Error fetching grouped CustomerService:', error);
-            reject(error)
-        }
-        })
-        
-    }
-    static  transformArrayToObject(responseForCompliment:any) {
-        if(responseForCompliment && responseForCompliment.length!=0){
-            return responseForCompliment.reduce((acc:any, curr:any) => {
-            acc[curr.type] = curr.count;
-            return acc;
-        }, {});
-        }else{
-            return null;
-        }
-        
-    }
-    static async groupFinder(rate_type:string,year:number,query?:any){
-
-        let data=await Rate.findAll({
-            where:{...query,year:year},
-            attributes: [
-                [sequelize.col(rate_type), 'type'],
-                'year',
-                [sequelize.fn('COUNT', sequelize.col(rate_type)), 'count']
+            "averageScore",
+          ],
+        ],
+        group: ["EmployeeId"],
+        order: [
+          [sequelize.literal("averageScore"), "DESC"], // Order by average score
+          ["EmployeeId", "ASC"], // Secondary order to handle ties
+        ],
+        where: query,
+        include: [
+          {
+            model: Employee,
+            include: [
+              {
+                model: Position,
+              },
             ],
-            group: [rate_type],
-            raw: true,
-        })
-        return data;
+          },
+        ],
+      });
+      console.log("Result ", result);
+      resolve(results);
+    });
+  }
+  static findAllRateInNumber(year?: number): Promise<{
+    CustomerService: Ratee;
+    StandardService: Ratee;
+    FairService: Ratee;
+    ResponseForCompliment: Ratee;
+    ServiceRate: Ratee;
+  }> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        year = year ? year : new Date().getFullYear();
 
+        const groupedCustomerService = await Rate.findAll({
+          where: { year: year },
+          attributes: [
+            [sequelize.col("CustomerService"), "type"],
+            "year",
+            [sequelize.fn("COUNT", sequelize.col("CustomerService")), "count"],
+          ],
+          group: ["CustomerService"],
+          raw: true,
+        });
+        const groupedStandardService = await Rate.findAll({
+          where: { year: year },
+          attributes: [
+            [sequelize.col("StandardService"), "type"],
+            "year",
+            [sequelize.fn("COUNT", sequelize.col("StandardService")), "count"],
+          ],
+          group: ["StandardService"],
+          raw: true,
+        });
+        const groupedFairService = await Rate.findAll({
+          where: { year: year },
+          attributes: [
+            [sequelize.col("FairService"), "type"],
+            "year",
+            [sequelize.fn("COUNT", sequelize.col("FairService")), "count"],
+          ],
+          group: ["FairService"],
+          raw: true,
+        });
+        const groupedResponseForCompliment = await Rate.findAll({
+          where: { year: year },
+          attributes: [
+            [sequelize.col("ResponseForCompliment"), "type"],
+            "year",
+            [
+              sequelize.fn("COUNT", sequelize.col("ResponseForCompliment")),
+              "count",
+            ],
+          ],
+          group: ["ResponseForCompliment"],
+          raw: true,
+        });
+        const groupedServiceRate = await Rate.findAll({
+          where: { year: year },
+          attributes: [
+            [sequelize.col("ServiceRate"), "type"],
+            "year",
+            [sequelize.fn("COUNT", sequelize.col("ServiceRate")), "count"],
+          ],
+          group: ["ServiceRate"],
+          raw: true,
+        });
+
+        resolve({
+          CustomerService: this.transformArrayToObject(groupedCustomerService),
+          StandardService: this.transformArrayToObject(groupedStandardService),
+          FairService: this.transformArrayToObject(groupedFairService),
+          ResponseForCompliment: this.transformArrayToObject(
+            groupedResponseForCompliment
+          ),
+          ServiceRate: this.transformArrayToObject(groupedServiceRate),
+        });
+        // console.log(groupedCustomerService);
+      } catch (error) {
+        console.error("Error fetching grouped CustomerService:", error);
+        reject(error);
+      }
+    });
+  }
+  static findAllRateInNumberForEmployee(query: any, year?: number) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        year = year ? year : new Date().getFullYear();
+        type ServiceCount = {
+          Bad: number | null;
+          Good: number | null;
+          VeryGood: number | null;
+          Excellent: number | null;
+        };
+        console.log("Employee_id", query);
+        let groupedCustomerService = await this.groupFinder(
+          "CustomerService",
+          year,
+          query
+        );
+        let groupedStandardService = await this.groupFinder(
+          "StandardService",
+          year,
+          query
+        );
+        let groupedFairService = await this.groupFinder(
+          "FairService",
+          year,
+          query
+        );
+        let groupedResponseForCompliment = await this.groupFinder(
+          "ResponseForCompliment",
+          year,
+          query
+        );
+        let groupedServiceRate = await await this.groupFinder(
+          "ServiceRate",
+          year,
+          query
+        );
+
+        let CustomerService: ServiceCount = this.transformArrayToObject(
+          groupedCustomerService
+        );
+        let StandardService: ServiceCount = this.transformArrayToObject(
+          groupedStandardService
+        );
+        let FairService: ServiceCount =
+          this.transformArrayToObject(groupedFairService);
+        let ResponseForCompliment: ServiceCount = this.transformArrayToObject(
+          groupedResponseForCompliment
+        );
+        let ServiceRate: ServiceCount =
+          this.transformArrayToObject(groupedServiceRate);
+        resolve({
+          CustomerService: CustomerService,
+          StandardService: StandardService,
+          FairService: FairService,
+          ResponseForCompliment: ResponseForCompliment,
+          ServiceRate: ServiceRate,
+        });
+        console.log(groupedCustomerService);
+      } catch (error) {
+        console.error("Error fetching grouped CustomerService:", error);
+        reject(error);
+      }
+    });
+  }
+  static transformArrayToObject(responseForCompliment: any) {
+    if (responseForCompliment && responseForCompliment.length != 0) {
+      return responseForCompliment.reduce((acc: any, curr: any) => {
+        acc[curr.type] = curr.count;
+        return acc;
+      }, {});
+    } else {
+      return null;
     }
-    static customerRateTheBranch(year:number):Promise<any>{
-        let mysql_query=`
+  }
+  static async groupFinder(rate_type: string, year: number, query?: any) {
+    let data = await Rate.findAll({
+      where: { ...query, year: year },
+      attributes: [
+        [sequelize.col(rate_type), "type"],
+        "year",
+        [sequelize.fn("COUNT", sequelize.col(rate_type)), "count"],
+      ],
+      group: [rate_type],
+      raw: true,
+    });
+    return data;
+  }
+  static customerRateTheBranch(year: number): Promise<any> {
+    let mysql_query = `
         SELECT 
 
             SUM(CASE WHEN ServiceRate = 'Excellent' THEN 1 ELSE 0 END) AS Excellent,
@@ -243,21 +279,22 @@ class StatisticsService {
             SUM(CASE WHEN ServiceRate = 'Bad' THEN 1 ELSE 0 END) AS Bad
         FROM 
             rates;`;
-        return new Promise((resolve,reject)=>{
-            sequelize.query(mysql_query)
-            .then((response)=>{
-                resolve(response[0][0]);
-            })
-            .catch((error)=>{
-                reject(error)
-            })
+    return new Promise((resolve, reject) => {
+      sequelize
+        .query(mysql_query)
+        .then((response) => {
+          resolve(response[0][0]);
         })
-
-    }
-    static employeeAverage(year:number):Promise<any>{
-        return new Promise((resolve,reject)=>{
-
-          sequelize.query(`
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  }
+  static employeeAverage(year: number): Promise<any> {
+    return new Promise((resolve, reject) => {
+      sequelize
+        .query(
+          `
     SELECT 
       e.id,
       e.amharic_name,
@@ -290,30 +327,34 @@ class StatisticsService {
     FROM employees e
     LEFT JOIN rates f ON e.id = f.EmployeeId
     GROUP BY e.id;
-  `, { type: QueryTypes.SELECT })
-  .then((results:any) => {
-    console.log(results);
-    let data:{EmployeeId:number,average:number,amharic_name:string,path:string}[]=[];
-    for (let index = 0; index < results.length; index++) {
-        const average=calculateAverageRating(results[index]);
-        data.push({
-            EmployeeId:results[index].id,
-            average:average,
-            amharic_name:results[index].amharic_name,
-            path:results[index].path
+  `,
+          { type: QueryTypes.SELECT }
+        )
+        .then((results: any) => {
+          console.log(results);
+          let data: {
+            EmployeeId: number;
+            average: number;
+            amharic_name: string;
+            path: string;
+          }[] = [];
+          for (let index = 0; index < results.length; index++) {
+            const average = calculateAverageRating(results[index]);
+            data.push({
+              EmployeeId: results[index].id,
+              average: average,
+              amharic_name: results[index].amharic_name,
+              path: results[index].path,
+            });
+          }
+          let sorted_average = getTop10ByAverage(data);
+          resolve(sorted_average);
         })
-       
-
-    }
-    let sorted_average=getTop10ByAverage(data);
-    resolve(sorted_average);
-  })
-  .catch(error => {
-    console.error(error);
-    reject(error);
-  });
-              
-})
-    }
+        .catch((error) => {
+          console.error(error);
+          reject(error);
+        });
+    });
+  }
 }
 export default StatisticsService;

@@ -102,7 +102,7 @@ export default async () => {
   IAMModuleRelationshipInitialization(sequelize, ON_DELETE);
 
   sequelize
-    .sync({ force: true })
+    .sync({ force: false })
     .then(async () => {
       if (process.env.NODE_ENV === "production") {
         sequelize.sync({ alter: true });
