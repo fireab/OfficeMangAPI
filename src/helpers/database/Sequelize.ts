@@ -304,7 +304,7 @@ const TopEmployees = [
     "አንበሳው ፈንቴ",
     "Anbesaw Fente",
     "Anbesaw Fente",
-    2,
+    3,
     "anbesaw_fente.jpg",
     "B-01 104"
   ),
@@ -313,7 +313,7 @@ const TopEmployees = [
     "አስቴር አድማሱ",
     "Aster Admasu",
     "Aster Admasu",
-    3,
+    4,
     "aster_admasu.jpg",
     "B-02 001"
   ),
@@ -322,18 +322,524 @@ const TopEmployees = [
     "እህተ ከበደ",
     "Ehte Kebede",
     "Ehte Kebede",
-    4,
+    5,
     "ehte_kebede.jpg",
     "B-02 101"
+  ),
+  new Employeez(
+    6,
+    "እጅጋየሁ ካሳ",
+    "Ejigayehu Kasa",
+    "Ejigayehu Kasa",
+    6,
+    "ejigayehu_kasa.jpg",
+    "B-01 101"
+  ),
+  new Employeez(
+    7,
+    "እንዳሻው ለገሰ",
+    "Endashaw Legesse",
+    "Endashaw Legesse",
+    7,
+    "endashaw_legesse.jpg",
+    "B-01 103"
+  ),
+  new Employeez(
+    8,
+    "ውባየሁ ግርማ",
+    "Wibayehu Girima",
+    "Wibayehu Girima",
+    8,
+    "wibayehu_girima.jpg",
+    "B-02 109"
+  ),
+  new Employeez(
+    9,
+    "ሃይሉ ጸጋዬ",
+    "Haylu Tsegaye",
+    "Haylu Tsegaye",
+    9,
+    "haylu_tsegaye.jpg",
+    "B-01 204"
+  ),
+  new Employeez(
+    10,
+    "ለሜሳ ጉደታ",
+    "Lamisa Gudeta",
+    "Lemisa Gudeta",
+    10,
+    "lemisa_gudeta.jpg",
+    "B-01 305"
+  ),
+  new Employeez(
+    11,
+    "መላኩ ጋሪ",
+    "Malaku Gari",
+    "Melaku Gari",
+    11,
+    "melaku_gari.jpg",
+    "B-01 301"
+  ),
+  new Employeez(
+    12,
+    "መልካሙ ሰውነት",
+    "Malkamu Sawnet",
+    "Melkamu Sewnet",
+    12,
+    "melkamu_sewnet.jpg",
+    "B-01 205"
+  ),
+  new Employeez(
+    13,
+    "መሰረት ግርማ",
+    "Meseret Girma",
+    "Meseret Girma",
+    13,
+    "meseret_girma.jpg",
+    "B-01 004"
+  ),
+  new Employeez(
+    14,
+    "ሙክታር ሰይድ",
+    "Muktar Seyid",
+    "Muktar Seyid",
+    14,
+    "muktar_seyid.jpg",
+    "B-01 403"
+  ),
+  new Employeez(
+    15,
+    "ነጻነት ሞላ",
+    "Netsanet Molla",
+    "Netsanet Molla",
+    15,
+    "netsanet_molla.jpg",
+    "B-01 001"
+  ),
+  new Employeez(
+    16,
+    "ሳሙኤል ተስፋዬ",
+    "Samule Tesfaye",
+    "Samuel Tesfaye",
+    16,
+    "samuel_tesfaye.jpg",
+    "B-01 107"
+  ),
+  new Employeez(
+    17,
+    "ሰይድ አብድላ",
+    "Seyd Abdela",
+    "Seyd Abdela",
+    17,
+    "seyd_abdela.jpg",
+    "B-01 305"
+  ),
+  new Employeez(
+    18,
+    "ሽመልስ ምትኬ",
+    "Shimelis Mitike",
+    "Shimelis Mitike",
+    18,
+    "shimelis_mitike.jpg",
+    "B-02 103"
+  ),
+  new Employeez(
+    19,
+    "ሰለሞን መለሰ",
+    "Solomon Melesse",
+    "Solomon Melesse",
+    19,
+    "solomon_melesse.jpg",
+    "B-01 203"
+  ),
+  new Employeez(
+    20,
+    "ታድሶ አበባው",
+    "Tadso Abebaw",
+    "Tadso Abebaw",
+    20,
+    "tadso_abebaw.jpg",
+    "B-01 402"
+  ),
+  new Employeez(
+    21,
+    "ቴዎድሮስ ይታገሡ",
+    "Tewodros Yitagesu",
+    "Tewodros Yitagesu",
+    21,
+    "tewodros_yitagesu.jpg",
+    "B-01 401"
+  ),
+  new Employeez(
+    22,
+    "ተመስገን ሁንደራ",
+    "Temesgen Hundera",
+    "Temesgen Hundera",
+    22,
+    "temesgen_hundera.jpg",
+    "B-01 305"
+  ),
+  new Employeez(
+    23,
+    "ተናኜ ነገሰ",
+    "Tenagne Negese",
+    "Tenagne Negese",
+    23,
+    "tenagne_negese.jpg",
+    "B-01 103"
+  ),
+  new Employeez(
+    24,
+    "ተዋበች ገብሬ",
+    "Tewabech Gebre",
+    "Tewabech Gebre",
+    24,
+    "tewabech_gebre.jpg",
+    "B-01 002"
+  ),
+  new Employeez(
+    25,
+    "አሰግደዉ ኃ/ጊዮርጊስ",
+    "Assegidew H/Giyorgis",
+    "Asegdew H/Giyorgis",
+    25,
+    "assegidew_h_giyorgis.jpg",
+    "B-01 206"
+  ),
+  new Employeez(
+    26,
+    "ሙሉቀን ዮናስ",
+    "Muluken Yonas",
+    "Muluken Yonas",
+    26,
+    "muluken_yonas.jpg",
+    "B-01 303"
+  ),
+  new Employeez(
+    27,
+    "አማኑኤር ሽብሩ",
+    "Amanuel Shibru",
+    "Amanuel Shibru",
+    27,
+    "amanuel_shibru.jpg",
+    "B-01 1  06"
+  ),
+  new Employeez(
+    28,
+    "ሰናይት ተስፋዬ",
+    "Senayit Tesfaye",
+    "Senayit Tesfaye",
+    28,
+    "senayit_tesfaye.jpg",
+    "B-01 304"
+  ),
+  new Employeez(
+    29,
+    "ብርክቲ መለሰ",
+    "Birkti Melesse",
+    "Birkti Melesse",
+    29,
+    "birkti_melesse.jpg",
+    "B-01 203"
+  ),
+  new Employeez(
+    30,
+    "ቴዎድሮስ ሽመልሽ",
+    "Tewodros Shimelesh",
+    "Tewodros Shimelesh",
+    30,
+    "",
+    "B-01 006"
+  ),
+  new Employeez(
+    31,
+    "የዉብዳር መለሰ",
+    "Yewibdar Melesse",
+    "Yewibdar Melesse",
+    31,
+    "",
+    "B-01 103"
+  ),
+  new Employeez(32, "አለም ሰይድ", "Alem Seyid", "Alem Seyid", 32, "", "B-01 013"),
+  new Employeez(
+    33,
+    "አንበሳዉ ፈንታ",
+    "Anbesaw Fenta",
+    "Anbesaw Fenta",
+    33,
+    "",
+    "B-02 108"
+  ),
+  new Employeez(
+    34,
+    "ዳዊት አባተ",
+    "Dawit Abate",
+    "Dawit Abate",
+    34,
+    "",
+    "B-02 104"
   ),
 ];
 
 const AllEmployees = [...TopEmployees];
 
 const allPositions = [
-  new Positionz(1, "test one", "test one AM", "", 0, true),
-  new Positionz(2, "test two", "test two AM", "", 1, true),
-  new Positionz(3, "test three", "test three AM", "", 1, true),
-  new Positionz(4, "test four", "test four AM", "", 2, false),
-  new Positionz(5, "test five", "test five AM", "", 2, true),
+  new Positionz(1, "Manager", "ዋና ስራ አስኪያጅ", "Hoji-geggeessaa", 0, true),
+  new Positionz(
+    2,
+    "Environmental Protection Officer",
+    "የአካባቢ ጥበቃ ባለስልጣን አማካሪ",
+    "Environmental Protection Officer",
+    1,
+    true
+  ),
+  new Positionz(
+    3,
+    "Environmental Education Team",
+    "የአካባቢ ትምህርት ግንዛቤ ቡድን",
+    "Garee Hubannoo Barnoota Naannoo",
+    1,
+    true
+  ),
+  new Positionz(
+    4,
+    "Laboratory Section Team",
+    "የላቦራቶሪ ክፍል ቡድን",
+    "Kutaa Laaboraatoorii",
+    0,
+    false
+  ),
+  new Positionz(
+    5,
+    "Internal Audit Directorate",
+    "የውስጥ ኦዲት ዳይሬክቶሬት",
+    "Daayirektoreetii Odiitii Keessaa",
+    0,
+    true
+  ),
+  new Positionz(
+    6,
+    "Human Resource Management Directorate",
+    "የሰው ኃብት አስተዳደር ዳይሬክቶሬት",
+    "Daayirektoreetii Bulchiinsa Humna Namaa",
+    0,
+    true
+  ),
+  new Positionz(
+    7,
+    "Procurement Directorate",
+    "ግዥ ዳይሬክቶሬት",
+    "Daayirektoreetii Bittaa",
+    0,
+    true
+  ),
+  new Positionz(
+    8,
+    "Planning, Budgeting, Monitoring and Evaluation Directorate",
+    "ዕቅድና በጀት ዝግጅት ክትትልና ግምገማ ዳይሬክቶሬት",
+    "Ramaddii Karooraa fi Baajata Daayirektoreetii fi gamaaggamaa",
+    0,
+    true
+  ),
+  new Positionz(
+    9,
+    "Directorate of Mining License Management",
+    "ማዕድን ፈቃድ አስተዳደር ዳይሬክቶሬት",
+    "Daarektoreetii Bulchiinsa Hayyama Albuudaa",
+    0,
+    true
+  ),
+  new Positionz(
+    10,
+    "Environmental Impact Assessment, Legislation and Compliance Directorate",
+    "አካባቢ ብክለት ጥናት ህግ ተከባሪነት አካባቢ ተፅዕኖ ግምገማ ዳይሬክቶሬት",
+    "Daayirektoreetii Madaallii Dhiibbaa Naannoo, Seera Baasuu fi Ulaagaa",
+    0,
+    true
+  ),
+  new Positionz(
+    11,
+    "Energy Audit and License Team",
+    "የኢነርጂ ኦዲት ፍቃድ ቡድን",
+    "Garee Odiitii fi Hayyama Annisaa",
+    0,
+    true
+  ),
+  new Positionz(
+    12,
+    "Mining License Management Control Team",
+    "የማዕድን ፈቃድ አስተዳደር ቁጥጥር ቡድን",
+    "Garee To'annoo Bulchiinsa Hayyama Albuudaa",
+    0,
+    true
+  ),
+  new Positionz(
+    13,
+    "Property and General Service Team",
+    "የንብረትና ጠቅላላ አገልግሎት ቡድን",
+    "Garee Qabeenyaa fi Tajaajila Waliigalaa",
+    0,
+    true
+  ),
+  new Positionz(
+    14,
+    "Communication Affairs Directorate",
+    "የኮምኒኬሽን ጉዳዮች ዳይሬክቶሬት",
+    "Daayirektoreetii Dhimmoota Komunikeeshinii",
+    0,
+    true
+  ),
+  new Positionz(
+    15,
+    "Finance Directorate",
+    "ፋይናንስ ዳይሬክቶሬት",
+    "Daayirektoreetii Faayinaansii",
+    0,
+    true
+  ),
+  new Positionz(
+    16,
+    "Ecosystem and Biodiversity Research and Development Team",
+    "የስርዓተ ምህዳርና ብዝሀ ህይወት ጥናትና ምርምር ቡድን",
+    "Garee Qorannoo fi Misooma Sirna Ikoo fi Heddummina Lubbu qabeeyyii",
+    0,
+    true
+  ),
+  new Positionz(
+    17,
+    "Director of Climate Change and Alternative Energy Technology",
+    "የአየር ንብረት ለውጥና አማራጭ ኢነርጂ ቴክኖሎጂ ዳይሬክተር",
+    "Daarektarri Jijjiirama Qilleensaa fi Teeknooloojii Annisaa Filannoo",
+    0,
+    true
+  ),
+  new Positionz(
+    18,
+    "Building Management and Maintenance Service Team",
+    "የህንፃ አስተዳደርና ጥገና አገልግሎት ቡድን",
+    "Garee Tajaajila Bulchiinsa Gamoo fi Suphaa",
+    0,
+    true
+  ),
+  new Positionz(
+    19,
+    "Heating, Ventilation and Air Conditioning Technology Expansion Team",
+    "የሙቀት አማቂ ጋዞችና ልኬት ቅነሳና አረንጓዴ ቴክኖሎጂ ማስፋፋት ቡድን",
+    "Garee Babal'ina Teeknooloojii Ho'isaa, Qilleensaa fi Qilleensaa",
+    0,
+    true
+  ),
+  new Positionz(
+    20,
+    "Office Manager",
+    "የጽ/ቤት ኃላፊ",
+    "Hogganaa waajjira",
+    0,
+    true
+  ),
+  new Positionz(
+    21,
+    "Head of Biodiversity and Ecosystem Management Monitoring and Control Team",
+    "የብዝሃ ሕይወትና ስርዓተ ምህዳር ግንዛቤ ክትትልና ቁጥጥር ቡድን መሪ",
+    "Hogganaa Garee Hordoffii fi To'annoo Bulchiinsa Heddummina Lubbu qabeeyyii fi Sirna Ikoo Naannoo",
+    0,
+    true
+  ),
+  new Positionz(
+    22,
+    "Ethics and Anti-Corruption Directorate",
+    "የስነምግባርና ፀረሙስና ዳይሬክቶሬት",
+    "Daayirektoreetii Naamusaa fi Farra Malaammaltummaa",
+    0,
+    true
+  ),
+  new Positionz(
+    23,
+    "Building Management Office Manager",
+    "የህንፃ አስተዳደር ጽ/ቤት ኃላፊ",
+    "Hogganaa Waajjira Bulchiinsa Gamoo",
+    0,
+    true
+  ),
+  new Positionz(
+    24,
+    "Facility Service Team",
+    "የፋሲሊቲ አገልግሎት ቡድን",
+    "Garee Tajaajila Faasilitii",
+    0,
+    true
+  ),
+  new Positionz(
+    25,
+    "Deputy Manager / Ecosystem and Mining Management",
+    "ምክትል ስራ አስኪያጅ / የስርዓተ ምህዳርና የማዕድን አስተዳደር",
+    "Itti Aanaa Hogganaa / Bulchiinsa Sirna Ikoo fi Albuudaa",
+    0,
+    true
+  ),
+  new Positionz(
+    26,
+    "Deputy Manager / Environmental Protection and Climate Change Section",
+    "ምክትል ስራ አስኪያጅ / አካባቢ ብክለትና የአየር ንብረት ለውጥ ዘርፍ",
+    "Itti Aanaa Hogganaa / Kutaa Eegumsa Naannoo fi Jijjiirama Qilleensaa",
+    0,
+    true
+  ),
+  new Positionz(
+    27,
+    "Forest Resource Utilization Team Leader",
+    "የደን ሀብት አጠቃቀም ቡድን መሪ",
+    "Hogganaa Garee Itti Fayyadama Qabeenya Bosonaa",
+    0,
+    true
+  ),
+  new Positionz(
+    28,
+    "Environmental Protection and Impact Assessment Control Team",
+    "የብክለት ቁጥጥርና የአካባቢ ተፅዕኖ ግምገማ ቡድን",
+    "Garee To'annoo Eegumsa Naannoo fi Madaallii Dhiibbaa",
+    0,
+    true
+  ),
+  new Positionz(
+    29,
+    "Climate Change and Planning Implementation Team",
+    "አየር ንብረት ለውጥና �ቅድ ዝግጅት ትግበራ ቡድን",
+    "Garee Raawwii Jijjiirama Qilleensaa fi Karoora",
+    0,
+    true
+  ),
+  new Positionz(
+    30,
+    "Petroleum and Petroleum Products Quality Assurance Team",
+    "የነዳጅና የነዳጅ ውጤቶች ተቋማት ቡቃት ማረጋገጫ ቡድን",
+    "Garee Mirkaneessa Qulqullina Oomisha Boba'aa fi Boba'aa",
+    0,
+    true
+  ),
+  new Positionz(31, "Procurement Team", "የግዥ ቡድን", "Garee Bittaa", 0, true),
+  new Positionz(
+    32,
+    "Information Technology Directorate",
+    "የኢንፎርሜሽን ቴክኖሎጂ ዳይሬክቶሬት",
+    "Daayirektoreetii Teeknooloojii Odeeffannoo",
+    0,
+    true
+  ),
+  new Positionz(
+    33,
+    "Change and Good Governance Directorate",
+    "የለውጥና መልካም አስተዳደር ዳይሬክቶሬት",
+    "Daayirektoreetii Jijjiiramaa fi Bulchiinsa Gaarii",
+    0,
+    true
+  ),
+  new Positionz(
+    34,
+    "Legal Service Team",
+    "የህግ �ገልግሎት ቡድን",
+    "Garee Tajaajila Seeraa",
+    0,
+    true
+  ),
 ];

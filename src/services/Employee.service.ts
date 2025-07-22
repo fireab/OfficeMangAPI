@@ -11,6 +11,7 @@ import {
 } from "../errors/Errors";
 import { Employee } from "../helpers/database/Sequelize";
 import { Transaction } from "sequelize/types";
+import { Position } from "../models/position.mode";
 class EmployeeService {
   /**
    *
@@ -178,6 +179,11 @@ class EmployeeService {
         }
       );
     });
+  }
+
+  static async getPostion() {
+    const position = await Position.findAll({});
+    return position;
   }
 }
 export default EmployeeService;

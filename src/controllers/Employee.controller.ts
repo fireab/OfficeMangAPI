@@ -2,7 +2,7 @@ import { Op } from "sequelize";
 import _ from "lodash";
 import async from "async";
 import config from "config";
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import {
   Error,
   BadRequestError,
@@ -117,10 +117,12 @@ class EmployeeController {
   }
   static updateProfile(request: Request, response: Response, next: Function) {
     let path: string = "";
+    console.log("man passed ....");
+
     if (request.file) {
       path = ImagePathResolver(request.file);
     }
-    console.log("Employee Update", path);
+    path = path.split("/").pop();
     EmployeeService.update({ id: request.params.id }, { path: path })
       .then((result: Employee) => response.send(result))
       .catch((error: any) => next(new BadRequestError(error)));
@@ -164,6 +166,19 @@ class EmployeeController {
         response.send(res);
       })
       .catch((error: any) => next(error));
+  }
+
+  static async getPositions(
+    request: Request,
+    response: Response,
+    next: NextFunction
+  ) {
+    try {
+      const positions = await EmployeeService.getPostion();
+      response.send(positions);
+    } catch (error) {
+      next(error);
+    }
   }
 }
 
