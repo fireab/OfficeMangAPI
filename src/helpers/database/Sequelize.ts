@@ -73,31 +73,31 @@ export default async () => {
 
   const ON_DELETE = process.env.NODE_ENV === "test" ? "CASCADE" : "RESTRICT";
 
-  sequelize = new Sequelize(dbName, dbUser, dbPassword, {
-    host: dbHost,
-    port: dbPort,
-    dialect: "mysql",
-    logging: false,
-    dialectOptions: {
-      connectTimeout: 60000,
-    },
-    pool: {
-      max: 100,
-      acquire: 60000,
-      // ...
-    },
-  });
-  // sequelize = new Sequelize({
-  //   dialect: "sqlite",
-  //   storage: path.join(__dirname, "database.sqlite"), // path to your SQLite file
+  // sequelize = new Sequelize(dbName, dbUser, dbPassword, {
+  //   host: dbHost,
+  //   port: dbPort,
+  //   dialect: "mysql",
   //   logging: false,
+  //   dialectOptions: {
+  //     connectTimeout: 60000,
+  //   },
   //   pool: {
-  //     max: 5,
-  //     min: 0,
-  //     acquire: 30000,
-  //     idle: 10000,
+  //     max: 100,
+  //     acquire: 60000,
+  //     // ...
   //   },
   // });
+  sequelize = new Sequelize({
+    dialect: "sqlite",
+    storage: path.join(__dirname, "database.sqlite"), // path to your SQLite file
+    logging: false,
+    pool: {
+      max: 5,
+      min: 0,
+      acquire: 30000,
+      idle: 10000,
+    },
+  });
   IAMModuleInitalization(sequelize, ON_DELETE);
   IAMModuleRelationshipInitialization(sequelize, ON_DELETE);
 
