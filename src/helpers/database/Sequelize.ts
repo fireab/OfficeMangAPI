@@ -102,7 +102,7 @@ export default async () => {
   IAMModuleRelationshipInitialization(sequelize, ON_DELETE);
 
   sequelize
-    .sync({ force: false })
+    .sync({ alter: true })
     .then(async () => {
       if (process.env.NODE_ENV === "production") {
         sequelize.sync({ alter: true });
@@ -584,22 +584,22 @@ const TopEmployees = [
 const AllEmployees = [...TopEmployees];
 
 const allPositions = [
-  new Positionz(1, "Manager", "ዋና ስራ አስኪያጅ", "Hoji-geggeessaa", 0, true),
+  new Positionz(1, "Manager", "ዋና ስራ አስኪያጅ", "Hoji-geggeessaa", 0, false),
   new Positionz(
     2,
     "Environmental Protection Officer",
     "የአካባቢ ጥበቃ ባለስልጣን አማካሪ",
     "Environmental Protection Officer",
-    1,
-    true
+    0,
+    false
   ),
   new Positionz(
     3,
     "Environmental Education Team",
     "የአካባቢ ትምህርት ግንዛቤ ቡድን",
     "Garee Hubannoo Barnoota Naannoo",
-    1,
-    true
+    0,
+    false
   ),
   new Positionz(
     4,
@@ -615,7 +615,7 @@ const allPositions = [
     "የውስጥ ኦዲት ዳይሬክቶሬት",
     "Daayirektoreetii Odiitii Keessaa",
     0,
-    true
+    false
   ),
   new Positionz(
     6,
@@ -623,7 +623,7 @@ const allPositions = [
     "የሰው ኃብት አስተዳደር ዳይሬክቶሬት",
     "Daayirektoreetii Bulchiinsa Humna Namaa",
     0,
-    true
+    false
   ),
   new Positionz(
     7,
@@ -631,7 +631,7 @@ const allPositions = [
     "ግዥ ዳይሬክቶሬት",
     "Daayirektoreetii Bittaa",
     0,
-    true
+    false
   ),
   new Positionz(
     8,
@@ -639,7 +639,7 @@ const allPositions = [
     "ዕቅድና በጀት ዝግጅት ክትትልና ግምገማ ዳይሬክቶሬት",
     "Ramaddii Karooraa fi Baajata Daayirektoreetii fi gamaaggamaa",
     0,
-    true
+    false
   ),
   new Positionz(
     9,
@@ -647,7 +647,7 @@ const allPositions = [
     "ማዕድን ፈቃድ አስተዳደር ዳይሬክቶሬት",
     "Daarektoreetii Bulchiinsa Hayyama Albuudaa",
     0,
-    true
+    false
   ),
   new Positionz(
     10,
@@ -655,7 +655,7 @@ const allPositions = [
     "አካባቢ ብክለት ጥናት ህግ ተከባሪነት አካባቢ ተፅዕኖ ግምገማ ዳይሬክቶሬት",
     "Daayirektoreetii Madaallii Dhiibbaa Naannoo, Seera Baasuu fi Ulaagaa",
     0,
-    true
+    false
   ),
   new Positionz(
     11,
@@ -663,7 +663,7 @@ const allPositions = [
     "የኢነርጂ ኦዲት ፍቃድ ቡድን",
     "Garee Odiitii fi Hayyama Annisaa",
     0,
-    true
+    false
   ),
   new Positionz(
     12,
@@ -671,7 +671,7 @@ const allPositions = [
     "የማዕድን ፈቃድ አስተዳደር ቁጥጥር ቡድን",
     "Garee To'annoo Bulchiinsa Hayyama Albuudaa",
     0,
-    true
+    false
   ),
   new Positionz(
     13,
@@ -679,7 +679,7 @@ const allPositions = [
     "የንብረትና ጠቅላላ አገልግሎት ቡድን",
     "Garee Qabeenyaa fi Tajaajila Waliigalaa",
     0,
-    true
+    false
   ),
   new Positionz(
     14,
@@ -687,7 +687,7 @@ const allPositions = [
     "የኮምኒኬሽን ጉዳዮች ዳይሬክቶሬት",
     "Daayirektoreetii Dhimmoota Komunikeeshinii",
     0,
-    true
+    false
   ),
   new Positionz(
     15,
@@ -695,7 +695,7 @@ const allPositions = [
     "ፋይናንስ ዳይሬክቶሬት",
     "Daayirektoreetii Faayinaansii",
     0,
-    true
+    false
   ),
   new Positionz(
     16,
@@ -703,7 +703,7 @@ const allPositions = [
     "የስርዓተ ምህዳርና ብዝሀ ህይወት ጥናትና ምርምር ቡድን",
     "Garee Qorannoo fi Misooma Sirna Ikoo fi Heddummina Lubbu qabeeyyii",
     0,
-    true
+    false
   ),
   new Positionz(
     17,
@@ -711,7 +711,7 @@ const allPositions = [
     "የአየር ንብረት ለውጥና አማራጭ ኢነርጂ ቴክኖሎጂ ዳይሬክተር",
     "Daarektarri Jijjiirama Qilleensaa fi Teeknooloojii Annisaa Filannoo",
     0,
-    true
+    false
   ),
   new Positionz(
     18,
@@ -719,7 +719,7 @@ const allPositions = [
     "የህንፃ አስተዳደርና ጥገና አገልግሎት ቡድን",
     "Garee Tajaajila Bulchiinsa Gamoo fi Suphaa",
     0,
-    true
+    false
   ),
   new Positionz(
     19,
@@ -727,7 +727,7 @@ const allPositions = [
     "የሙቀት አማቂ ጋዞችና ልኬት ቅነሳና አረንጓዴ ቴክኖሎጂ ማስፋፋት ቡድን",
     "Garee Babal'ina Teeknooloojii Ho'isaa, Qilleensaa fi Qilleensaa",
     0,
-    true
+    false
   ),
   new Positionz(
     20,
@@ -735,7 +735,7 @@ const allPositions = [
     "የጽ/ቤት ኃላፊ",
     "Hogganaa waajjira",
     0,
-    true
+    false
   ),
   new Positionz(
     21,
@@ -743,7 +743,7 @@ const allPositions = [
     "የብዝሃ ሕይወትና ስርዓተ ምህዳር ግንዛቤ ክትትልና ቁጥጥር ቡድን መሪ",
     "Hogganaa Garee Hordoffii fi To'annoo Bulchiinsa Heddummina Lubbu qabeeyyii fi Sirna Ikoo Naannoo",
     0,
-    true
+    false
   ),
   new Positionz(
     22,
@@ -751,7 +751,7 @@ const allPositions = [
     "የስነምግባርና ፀረሙስና ዳይሬክቶሬት",
     "Daayirektoreetii Naamusaa fi Farra Malaammaltummaa",
     0,
-    true
+    false
   ),
   new Positionz(
     23,
@@ -759,7 +759,7 @@ const allPositions = [
     "የህንፃ አስተዳደር ጽ/ቤት ኃላፊ",
     "Hogganaa Waajjira Bulchiinsa Gamoo",
     0,
-    true
+    false
   ),
   new Positionz(
     24,
@@ -767,7 +767,7 @@ const allPositions = [
     "የፋሲሊቲ አገልግሎት ቡድን",
     "Garee Tajaajila Faasilitii",
     0,
-    true
+    false
   ),
   new Positionz(
     25,
@@ -775,7 +775,7 @@ const allPositions = [
     "ምክትል ስራ አስኪያጅ / የስርዓተ ምህዳርና የማዕድን አስተዳደር",
     "Itti Aanaa Hogganaa / Bulchiinsa Sirna Ikoo fi Albuudaa",
     0,
-    true
+    false
   ),
   new Positionz(
     26,
@@ -783,7 +783,7 @@ const allPositions = [
     "ምክትል ስራ አስኪያጅ / አካባቢ ብክለትና የአየር ንብረት ለውጥ ዘርፍ",
     "Itti Aanaa Hogganaa / Kutaa Eegumsa Naannoo fi Jijjiirama Qilleensaa",
     0,
-    true
+    false
   ),
   new Positionz(
     27,
@@ -791,7 +791,7 @@ const allPositions = [
     "የደን ሀብት አጠቃቀም ቡድን መሪ",
     "Hogganaa Garee Itti Fayyadama Qabeenya Bosonaa",
     0,
-    true
+    false
   ),
   new Positionz(
     28,
@@ -799,7 +799,7 @@ const allPositions = [
     "የብክለት ቁጥጥርና የአካባቢ ተፅዕኖ ግምገማ ቡድን",
     "Garee To'annoo Eegumsa Naannoo fi Madaallii Dhiibbaa",
     0,
-    true
+    false
   ),
   new Positionz(
     29,
@@ -807,7 +807,7 @@ const allPositions = [
     "አየር ንብረት ለውጥና �ቅድ ዝግጅት ትግበራ ቡድን",
     "Garee Raawwii Jijjiirama Qilleensaa fi Karoora",
     0,
-    true
+    false
   ),
   new Positionz(
     30,
@@ -815,16 +815,16 @@ const allPositions = [
     "የነዳጅና የነዳጅ ውጤቶች ተቋማት ቡቃት ማረጋገጫ ቡድን",
     "Garee Mirkaneessa Qulqullina Oomisha Boba'aa fi Boba'aa",
     0,
-    true
+    false
   ),
-  new Positionz(31, "Procurement Team", "የግዥ ቡድን", "Garee Bittaa", 0, true),
+  new Positionz(31, "Procurement Team", "የግዥ ቡድን", "Garee Bittaa", 0, false),
   new Positionz(
     32,
     "Information Technology Directorate",
     "የኢንፎርሜሽን ቴክኖሎጂ ዳይሬክቶሬት",
     "Daayirektoreetii Teeknooloojii Odeeffannoo",
     0,
-    true
+    false
   ),
   new Positionz(
     33,
@@ -832,7 +832,7 @@ const allPositions = [
     "የለውጥና መልካም አስተዳደር ዳይሬክቶሬት",
     "Daayirektoreetii Jijjiiramaa fi Bulchiinsa Gaarii",
     0,
-    true
+    false
   ),
   new Positionz(
     34,
@@ -840,6 +840,6 @@ const allPositions = [
     "የህግ �ገልግሎት ቡድን",
     "Garee Tajaajila Seeraa",
     0,
-    true
+    false
   ),
 ];

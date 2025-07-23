@@ -55,6 +55,7 @@ class EmployeeService {
     return new Promise((resolve, reject) => {
       Employee.findOne({
         where: query,
+        include: includes,
       })
         .then((result: Employee) => {
           if (!result) {

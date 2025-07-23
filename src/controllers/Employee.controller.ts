@@ -77,9 +77,45 @@ class EmployeeController {
    * @returns
    */
   static findById(request: Request, response: Response, next: Function) {
-    EmployeeService.findOne({ id: request.params.id }, [], [])
+    EmployeeService.findOne({ id: request.params.id }, [], ["position"])
       .then((Employee: Employee) => {
-        response.send(Employee);
+        function transformEmployees(employees: any[]) {
+          return employees.map((emp) => {
+            let teamId: number | null = 0;
+
+            if (emp.position?.parent_id && emp.position.parent_id !== 0) {
+              const parentEmp = employees.find(
+                (e) => e.position_id === emp.position.parent_id
+              );
+
+              teamId = parentEmp ? parentEmp.id : 0;
+            }
+
+            return {
+              id: emp.id,
+              amharic_name: emp.amharic_name,
+              oromic_name: emp.oromic_name,
+              english_name: emp.english_name,
+              oromic_position: emp.position?.name_or || null,
+              position: emp.position?.name_am || null,
+              english_position: emp.position?.name_en || null,
+              path: emp.path,
+              office: emp.office,
+              team_id: teamId,
+              is_director: emp.is_director,
+              has_sub: emp.position?.has_sub,
+            };
+          });
+        }
+
+        // change to to proper json the result first
+        let res = [Employee].map((item: Employee) => {
+          const plain = item.toJSON(); // convert Sequelize model to plain JSON
+          return plain;
+        });
+
+        const transormData = transformEmployees(res);
+        response.send(transormData[0]);
       })
       .catch((error: any) => next(error));
   }
