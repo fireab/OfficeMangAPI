@@ -467,7 +467,7 @@ const TopEmployees = [
     "Tewodros Yitagesu",
     "Tewodros Yitagesu",
     21,
-    "tewodros_yitagesu.jpg",
+    "",
     "B-01 401"
   ),
   new Employeez(
@@ -579,6 +579,33 @@ const TopEmployees = [
     "",
     "B-02 104"
   ),
+  new Employeez(
+    35,
+    "ቴዎድሮስ ይታገሡ",
+    "Tewodros Yitagesu",
+    "Tewodros Yitagesu",
+    35,
+    "tewodros_yitagesu.jpg",
+    "B-01 401"
+  ),
+  new Employeez(
+    36,
+    "እንዳለ ፍቃዱ",
+    "Endale Fikadu",
+    "Endale Fikadu",
+    36,
+    "endale_fikadu.jpg",
+    "B-01 206"
+  ),
+  new Employeez(
+    37,
+    "አብዲ ቀሊ",
+    "Abdi keli",
+    "Abdi keli",
+    37,
+    "abdi_keli.jpg",
+    "B-01 206"
+  ),
 ];
 
 const AllEmployees = [...TopEmployees];
@@ -598,7 +625,7 @@ const allPositions = [
     "Environmental Education Team",
     "የአካባቢ ትምህርት ግንዛቤ ቡድን",
     "Garee Hubannoo Barnoota Naannoo",
-    17,
+    21,
     false
   ),
   new Positionz(
@@ -606,7 +633,7 @@ const allPositions = [
     "Laboratory Section Team",
     "የላቦራቶሪ ክፍል ቡድን",
     "Kutaa Laaboraatoorii",
-    28,
+    10,
     false
   ),
   new Positionz(
@@ -647,7 +674,7 @@ const allPositions = [
     "ማዕድን ፈቃድ አስተዳደር ዳይሬክቶሬት",
     "Daarektoreetii Bulchiinsa Hayyama Albuudaa",
     25,
-    false
+    true
   ),
   new Positionz(
     10,
@@ -655,7 +682,7 @@ const allPositions = [
     "አካባቢ ብክለት ጥናት ህግ ተከባሪነት አካባቢ ተፅዕኖ ግምገማ ዳይሬክቶሬት",
     "Daayirektoreetii Madaallii Dhiibbaa Naannoo, Seera Baasuu fi Ulaagaa",
     26,
-    false
+    true
   ),
   new Positionz(
     11,
@@ -670,7 +697,7 @@ const allPositions = [
     "Mining License Management Control Team",
     "የማዕድን ፈቃድ አስተዳደር ቁጥጥር ቡድን",
     "Garee To'annoo Bulchiinsa Hayyama Albuudaa",
-    25,
+    9,
     false
   ),
   new Positionz(
@@ -739,8 +766,8 @@ const allPositions = [
   ),
   new Positionz(
     21,
-    "Head of Biodiversity and Ecosystem Management Monitoring and Control Team",
-    "የብዝሃ ሕይወትና ስርዓተ ምህዳር ግንዛቤ ክትትልና ቁጥጥር ቡድን መሪ",
+    "Head of Biodiversity and Ecosystem Management Monitoring and Control Directorate",
+    "የብዝሃ ሕይወትና ስርዓተ ምህዳር ግንዛቤ ክትትልና ቁጥጥር ዳይሬክቶሬት",
     "Hogganaa Garee Hordoffii fi To'annoo Bulchiinsa Heddummina Lubbu qabeeyyii fi Sirna Ikoo Naannoo",
     25,
     true
@@ -798,13 +825,13 @@ const allPositions = [
     "Environmental Protection and Impact Assessment Control Team",
     "የብክለት ቁጥጥርና የአካባቢ ተፅዕኖ ግምገማ ቡድን",
     "Garee To'annoo Eegumsa Naannoo fi Madaallii Dhiibbaa",
-    26,
-    true
+    10,
+    false
   ),
   new Positionz(
     29,
     "Climate Change and Planning Implementation Team",
-    "አየር ንብረት ለውጥና �ቅድ ዝግጅት ትግበራ ቡድን",
+    "አየር ንብረት ለውጥና እቅድ ዝግጅት ትግበራ ቡድን",
     "Garee Raawwii Jijjiirama Qilleensaa fi Karoora",
     17,
     false
@@ -814,7 +841,7 @@ const allPositions = [
     "Petroleum and Petroleum Products Quality Assurance Team",
     "የነዳጅና የነዳጅ ውጤቶች ተቋማት ቡቃት ማረጋገጫ ቡድን",
     "Garee Mirkaneessa Qulqullina Oomisha Boba'aa fi Boba'aa",
-    25,
+    9,
     false
   ),
   new Positionz(31, "Procurement Team", "የግዥ ቡድን", "Garee Bittaa", 7, false),
@@ -837,9 +864,33 @@ const allPositions = [
   new Positionz(
     34,
     "Legal Service Team",
-    "የህግ �ገልግሎት ቡድን",
+    "የህግ አገልግሎት ቡድን",
     "Garee Tajaajila Seeraa",
-    15,
+    0,
+    false
+  ),
+  new Positionz(
+    35,
+    "Head of Biodiversity and Ecosystem Management Monitoring and Control team",
+    "የብዝሃ ሕይወትና ስርዓተ ምህዳር ግንዛቤ ክትትልና ቁጥጥር ቡድን",
+    "Hogganaa Garee Hordoffii fi To'annoo Bulchiinsa Heddummina Lubbu qabeeyyii fi Sirna Ikoo Naannoo",
+    21,
+    false
+  ),
+  new Positionz(
+    36,
+    "Bio Energy and Technology Expansion Team",
+    "የባዮ ኢነርጂ እና ቴክኖሎጂ ማስፋፊያ ቡድን",
+    "Garee Babal'ina Baayoo Annisaa fi Teeknooloojii",
+    17,
+    false
+  ),
+  new Positionz(
+    37,
+    "Environmental and Social Impact Assessment Team",
+    "የአካባቢ እና ማህበረሰብ ተፅዕኖ ግምገማ ቡድን",
+    "Garee Madaallii Dhiibbaa Naannoo fi Hawaasummaa",
+    10,
     false
   ),
 ];

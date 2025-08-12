@@ -285,8 +285,8 @@ export class StatisticsController {
               english_position: emp.employee.position?.name_en || "",
               path: emp.employee.path || "",
               office: emp.employee.office,
-              team_id: teamId,
-              is_director: emp.employee.is_director,
+              team_id: `${teamId}`,
+              is_director: emp.employee.is_director || false,
               has_sub: emp.employee.position?.has_sub,
             },
           };
