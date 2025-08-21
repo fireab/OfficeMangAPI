@@ -866,7 +866,7 @@ const allPositions = [
     "Legal Service Team",
     "የህግ አገልግሎት ቡድን",
     "Garee Tajaajila Seeraa",
-    0,
+    20,
     false
   ),
   new Positionz(
