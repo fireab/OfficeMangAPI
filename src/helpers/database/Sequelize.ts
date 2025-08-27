@@ -291,11 +291,11 @@ const TopEmployees = [
     " B-01   201"
   ),
   new Employeez(
-    2,
+    26,
     "አዱኛ ወንድሙ",
     "Adugna Wendimu",
     "Adugna Wendimu",
-    2,
+    26,
     "adugna_wendimu.jpg",
     "B-01 304"
   ),
@@ -507,11 +507,11 @@ const TopEmployees = [
     "B-01 206"
   ),
   new Employeez(
-    26,
+    2,
     "ሙሉቀን ዮናስ",
     "Muluken Yonas",
     "Muluken Yonas",
-    26,
+    2,
     "muluken_yonas.jpg",
     "B-01 303"
   ),
@@ -613,7 +613,7 @@ const AllEmployees = [...TopEmployees];
 const allPositions = [
   new Positionz(1, "Manager", "ዋና ስራ አስኪያጅ", "Hoji-geggeessaa", 0, false),
   new Positionz(
-    2,
+    26,
     "Environmental Protection Officer",
     "የአካባቢ ጥበቃ ባለስልጣን አማካሪ",
     "Environmental Protection Officer",
@@ -681,7 +681,7 @@ const allPositions = [
     "Environmental Impact Assessment, Legislation and Compliance Directorate",
     "አካባቢ ብክለት ጥናት ህግ ተከባሪነት አካባቢ ተፅዕኖ ግምገማ ዳይሬክቶሬት",
     "Daayirektoreetii Madaallii Dhiibbaa Naannoo, Seera Baasuu fi Ulaagaa",
-    26,
+    2,
     true
   ),
   new Positionz(
@@ -737,7 +737,7 @@ const allPositions = [
     "Director of Climate Change and Alternative Energy Technology",
     "የአየር ንብረት ለውጥና አማራጭ ኢነርጂ ቴክኖሎጂ ዳይሬክተር",
     "Daarektarri Jijjiirama Qilleensaa fi Teeknooloojii Annisaa Filannoo",
-    26,
+    2,
     true
   ),
   new Positionz(
@@ -805,7 +805,7 @@ const allPositions = [
     true
   ),
   new Positionz(
-    26,
+    2,
     "Deputy Manager / Environmental Protection and Climate Change Section",
     "ምክትል ስራ አስኪያጅ / አካባቢ ብክለትና የአየር ንብረት ለውጥ ዘርፍ",
     "Itti Aanaa Hogganaa / Kutaa Eegumsa Naannoo fi Jijjiirama Qilleensaa",
