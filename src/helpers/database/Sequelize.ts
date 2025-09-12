@@ -14,6 +14,8 @@ import AudioFeedBackFactory, {
 } from "../../models/AudioFeedBack.model";
 import path from "path";
 import PositionFactory, { Position } from "../../models/position.mode";
+import ServiceFactory, { Service } from "../../models/Services.model";
+import SubServiceFactory, { SubService } from "../../models/SubService.model";
 let sequelize: Sequelize;
 
 /**
@@ -31,6 +33,8 @@ const IAMModuleInitalization = (sequelize: Sequelize, onDelete: string) => {
   FeedBackFactory(sequelize);
   AudioFeedBackFactory(sequelize);
   PositionFactory(sequelize);
+  ServiceFactory(sequelize);
+  SubServiceFactory(sequelize);
 };
 /**
  *
@@ -61,6 +65,19 @@ const IAMModuleRelationshipInitialization = (
     foreignKey: "position_id",
     onDelete,
   });
+
+  Service.hasMany(SubService, {
+    foreignKey: "service_id",
+    onDelete,
+  });
+  Service.belongsTo(SubService, {
+    foreignKey: "service_id",
+    onDelete,
+  });
+
+  // many to many relation between service and employee
+  Service.belongsToMany(Employee, { through: "EmployeeServices" });
+  Employee.belongsToMany(Service, { through: "EmployeeServices" });
 };
 
 export default async () => {
@@ -102,7 +119,7 @@ export default async () => {
   IAMModuleRelationshipInitialization(sequelize, ON_DELETE);
 
   sequelize
-    .sync({ alter: true })
+    .sync({ force: true })
     .then(async () => {
       if (process.env.NODE_ENV === "production") {
         sequelize.sync({ alter: true });
@@ -193,6 +210,8 @@ export {
   Comment,
   FeedBack,
   AudioFeedBack,
+  Service,
+  SubService,
 };
 
 class Employeez {
