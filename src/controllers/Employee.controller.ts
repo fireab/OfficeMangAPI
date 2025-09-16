@@ -51,6 +51,7 @@ class EmployeeController {
               team_id: teamId,
               is_director: emp.is_director,
               has_sub: emp.position?.has_sub,
+              service_id: emp.service_id,
             };
           });
         }
@@ -159,6 +160,7 @@ class EmployeeController {
       path = ImagePathResolver(request.file);
     }
     path = path.split("/").pop();
+
     EmployeeService.update({ id: request.params.id }, { path: path })
       .then((result: Employee) => response.send(result))
       .catch((error: any) => next(new BadRequestError(error)));
@@ -215,6 +217,21 @@ class EmployeeController {
     } catch (error) {
       next(error);
     }
+  }
+
+  static async syncEmp(req: Request, res: Response) {
+    let body = [
+      {
+        service_id: 1,
+        employee_ids: [1, 2, 3],
+      },
+      {
+        service_id: 2,
+        employee_ids: [4, 5],
+      },
+    ];
+    let result = await EmployeeService.handleAssign(body);
+    res.status(200).send(result);
   }
 }
 

@@ -36,11 +36,34 @@ let getFilename = (file: Express.Multer.File) => {
  * Valid Image Mime Types
  */
 const MimeTypes = [
+  // Images
   "image/png",
   "image/jpg",
   "image/jpeg",
-  "image/*",
+  "image/gif",
+  "image/webp",
+  "image/svg+xml",
+  "image/heic",
+  "image/heif",
+  "image/*", // fallback for all images
+
+  // Documents
   "application/pdf",
+
+  // Videos
+  "video/mp4",
+  "video/webm",
+  "video/ogg",
+  "video/quicktime", // .mov
+  "video/x-msvideo", // .avi
+  "video/x-ms-wmv", // .wmv
+  "video/mpeg", // .mpeg
+  "video/3gpp", // .3gp
+  "video/3gpp2", // .3g2
+  "video/x-matroska", // .mkv
+  "video/x-flv", // .flv
+  "video/x-m4v",
+  "video/*", // fallback for all videos
 ];
 
 /**

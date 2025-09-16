@@ -15,15 +15,18 @@ import Messages from "./errors/Messages";
 // import logger from "./helpers/logger/Winston";
 import { ForeignKeyConstraintError, QueryTypes } from "sequelize";
 import UserService from "./services/User.service";
-import initializeDB, { Rate, User, sequelize } from "./helpers/database/Sequelize";
-import {
-  PassportJWTStrategy,
-} from "./helpers/security/Strategy";
+import initializeDB, {
+  Rate,
+  User,
+  sequelize,
+} from "./helpers/database/Sequelize";
+import { PassportJWTStrategy } from "./helpers/security/Strategy";
 import path from "path";
 import config from "config";
 import fs from "fs";
 import c from "config";
-var ethiopianDate = require('ethiopian-date');
+import ServiceService from "./services/service.service";
+var ethiopianDate = require("ethiopian-date");
 /**
  * Initialize Express App
  */
@@ -66,12 +69,18 @@ app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(helmet());
 
-app.use(cors({origin:'*'}));
+app.use(cors({ origin: "*" }));
 app.use(morgan("combined"));
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, DELETE, OPTIONS"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  );
   next();
 });
 app.use("/public", express.static("public"));
@@ -86,31 +95,38 @@ morganBody(app, { maxBodyLength: 1000000 });
 /**
  * Initialize Database
  */
-initializeDB();
+initializeDB()
+  .then(() => {
+    console.log("Database Initialized");
+    initializeServices();
+  })
+  .catch((error: any) => {
+    console.log("Database Initialization Failed", error);
+  });
 
 /**
  * Initialize Routes
  */
 routes(app);
 
-app.get('/uploads/:filename', (req, res) => {
-  const filePath = path.join(__dirname,'..', 'uploads', req.params.filename);
-  console.log("File Path ",filePath)
+app.get("/uploads/:filename", (req, res) => {
+  const filePath = path.join(__dirname, "..", "uploads", req.params.filename);
+  console.log("File Path ", filePath);
   // Check if the file exists
   if (fs.existsSync(filePath)) {
-      // Set appropriate headers for binary data
-      res.setHeader('Content-Type', 'application/octet-stream');
-      res.setHeader('Content-Disposition', 'inline');
-      
-      // Stream the file as binary
-      const fileStream = fs.createReadStream(filePath);
-      fileStream.pipe(res);
+    // Set appropriate headers for binary data
+    res.setHeader("Content-Type", "application/octet-stream");
+    res.setHeader("Content-Disposition", "inline");
+
+    // Stream the file as binary
+    const fileStream = fs.createReadStream(filePath);
+    fileStream.pipe(res);
   } else {
-      res.status(404).send('File not found');
+    res.status(404).send("File not found");
   }
 });
-// async function TestFunction(rate_type:string,year:number,query?:any) {
 
+// async function TestFunction(rate_type:string,year:number,query?:any) {
 
 // }
 // TestFunction("CustomerService",2024);
@@ -170,21 +186,101 @@ app.use((error: any, request: Request, response: Response, next: Function) => {
   }
 });
 const displayEthiopiaDate = () => {
-  const date=new Date();
-  const e_Date=ethiopianDate.toEthiopian(date.getFullYear(),date.getMonth()+1,date.getDate());
-  console.log("Ethiopian Date",e_Date);
-  const current_ethioipian_month=e_Date[1];
-  const current_ethioipian_day=e_Date[2];
-  const current_ethioipian_year=e_Date[0];
-  const start_date=ethiopianDate.toGregorian(current_ethioipian_year,current_ethioipian_month,1);
-  const end_date=ethiopianDate.toGregorian(current_ethioipian_year,current_ethioipian_month,30);
-  
-  const valid_start_date=new Date(start_date[0],start_date[1]-1,start_date[2]);
-  const valid_end_date=new Date(end_date[0],end_date[1]-1,end_date[2]);
-  console.log("Start Date",start_date);
-  console.log("End Date",end_date);
-  console.log("Valid Start Date",valid_start_date);
-  console.log("Valid End Date",valid_end_date);
+  const date = new Date();
+  const e_Date = ethiopianDate.toEthiopian(
+    date.getFullYear(),
+    date.getMonth() + 1,
+    date.getDate()
+  );
+  console.log("Ethiopian Date", e_Date);
+  const current_ethioipian_month = e_Date[1];
+  const current_ethioipian_day = e_Date[2];
+  const current_ethioipian_year = e_Date[0];
+  const start_date = ethiopianDate.toGregorian(
+    current_ethioipian_year,
+    current_ethioipian_month,
+    1
+  );
+  const end_date = ethiopianDate.toGregorian(
+    current_ethioipian_year,
+    current_ethioipian_month,
+    30
+  );
+
+  const valid_start_date = new Date(
+    start_date[0],
+    start_date[1] - 1,
+    start_date[2]
+  );
+  const valid_end_date = new Date(end_date[0], end_date[1] - 1, end_date[2]);
+  console.log("Start Date", start_date);
+  console.log("End Date", end_date);
+  console.log("Valid Start Date", valid_start_date);
+  console.log("Valid End Date", valid_end_date);
+};
+
+async function initializeServices(): Promise<void> {
+  console.log("===========================");
+
+  console.log("Initalize service and subservice");
+  const services = await ServiceService.getAll();
+  if (services.length == 0) {
+    // create services with subservices
+    const serviceWithSubService = [
+      {
+        title: "የአካባቢ ብክለት ቁጥጥር",
+        titleEn: "Environmental Pollution Control",
+        icon: "Leaf",
+        color: "from-green-500 to-emerald-600",
+        subServices: [
+          { title: "የአካባቢ ብክለት ቁጥጥር", titleEn: "" },
+          { title: "ህጎችና ስታንዳርዶችን ማዘጋጀትና ግንዛቤ መስጠት", titleEn: "" },
+          { title: "ብክለት በሚያደርሱ ተቋማት ክትትልና ቁጥጥር ማድረግ", titleEn: "" },
+          { title: "የብክለት መጠን በመለካት እርምጃ መውሰድ", titleEn: "" },
+          { title: "የፕሮጀክቶች የአካባቢ ተፅዕኖ ግምገማ ሰነዶችን መገምገም መቆጣጠር", titleEn: "" },
+          { title: "የአካባቢ አያያዝ ዕቅድ እና የአካባቢ ክዋኔ ሪፖርት መከታተል", titleEn: "" },
+          { title: "የአካባቢ የላቦራቶሪ ምርመራ ማካሄድና ውጤት መስጠት", titleEn: "" },
+        ],
+        // employeeIds: [1, 2, 3],
+      },
+      {
+        title: "የአየር ንብረት ለውጥና አማራጭ ኢነርጂ",
+        titleEn: "Climate Change & Alternative Energy",
+        icon: "Wind",
+        color: "from-blue-500 to-cyan-600",
+        subServices: [
+          { title: "ህጎችና ስታንዳርዶችን ማዘጋጀትና ግንዛቤ መስጠት", titleEn: "" },
+          {
+            title: "ለአየር ንብረት ለውጥን በዘርፍ መ/ቤቶች በዕቅድ መካተቱ ማረጋገጥና መከታተል",
+            titleEn: "",
+          },
+          { title: "የሙቀት አማቂ ጋዞች ልቀት በመለካት ማካሄድና ቅነሳ ማረጋገጥ", titleEn: "" },
+          {
+            title: "ለአየር ንብረት ለውጥ ተፅዕኖ ተጋላጭ የህበረተስብ ክፍሎች ድጋፍና ክትትል ማድረግ",
+            titleEn: "",
+          },
+          {
+            title: "የኢነርጂ ቴክኖሎጂዎችን የዲዛይንና የፕሮሞሽን ስራ በመስራት ለተጠቃሚዎች ማስፋፋት",
+            titleEn: "",
+          },
+          {
+            title: "የኤሌክትሪክ መስመር ዝርጋታ ሙያና በኤሌክትሪክ ነክ ለተሰማሩ ብቃት ማረጋገጫ መስጠት",
+            titleEn: "",
+          },
+        ],
+        // employeeIds: [4, 5, 6],
+      },
+    ];
+    try {
+      // create service with subservice
+      let data = await ServiceService.createMultiWithSubServices(
+        serviceWithSubService
+      );
+      console.log("Service with subservice created", data);
+      // map employee with service
+    } catch (error) {
+      console.log("Error creating service with subservice", error);
+    }
+  }
 }
-displayEthiopiaDate();
 export default app;

@@ -181,6 +181,47 @@ class EmployeeService {
       );
     });
   }
+  static async simpleUpdate(query: any, body: any): Promise<any> {
+    console.log("xxxxxxxxxxxxxxxxxx");
+
+    // let res = await Employee.findOne({ where: query });
+    console.log("yyyyyyyyyyyyyyyyyyyyyy");
+
+    // if (!res) {
+    //   throw new BadRequestError([{ messages: "Employee Not Found" }]);
+    // }
+    console.log("pleaseeeeeee");
+
+    const result = await Employee.update(body, { where: query });
+    return "result";
+  }
+
+  static async handleAssign(data: any[]): Promise<{ message: string }> {
+    try {
+      for (const d of data) {
+        const service_id = d.service_id;
+        const employee_ids = d.employee_ids;
+
+        for (const empId of employee_ids) {
+          const emp = await Employee.findOne({ where: { id: empId } });
+          if (emp) {
+            emp.service_id = service_id;
+            await emp.save();
+          } else {
+            console.warn(`Employee with id ${empId} not found.`);
+          }
+        }
+      }
+
+      return {
+        message:
+          "All employees have been successfully assigned to their services.",
+      };
+    } catch (error) {
+      console.error("Error assigning employees to services:", error);
+      throw new BadRequestError(["Failed to assign employees to services."]);
+    }
+  }
 
   static async getPostion() {
     const position = await Position.findAll({});

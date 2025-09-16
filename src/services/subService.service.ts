@@ -1,6 +1,8 @@
 // src/services/service.service.ts
+import { SubService } from "../models/SubService.model";
 import { Service } from "../models/Services.model";
 import { Sequelize } from "sequelize";
+import { Employee } from "../models/Employee.model";
 
 class ServiceService {
   private static sequelize: Sequelize;
@@ -22,7 +24,21 @@ class ServiceService {
   // Get all services
   static async getAll(): Promise<Service[]> {
     try {
-      const services = await Service.findAll();
+      const services = await Service.findAll({
+        // include: ["subServices", "employees", "employees.postion"],
+        include: [
+          {
+            model: SubService,
+            as: "subServices",
+          },
+          {
+            model: Employee,
+            as: "employees",
+            include: ["position"],
+          },
+        ],
+      });
+
       return services;
     } catch (error) {
       throw new Error(`Error getting services: ${error.message}`);

@@ -1,42 +1,41 @@
 import { v4 as uuidv4 } from "uuid";
 import { Sequelize, Model, DataTypes } from "sequelize";
-import { SubService } from "./SubService.model";
-import { Employee } from "./Employee.model";
-export class Service extends Model {
-  id: number;
-  title: string;
-  titleEn: string;
-  icon: string;
-  color: string;
-  subServices: SubService[];
-  employees: Employee[];
+import { Position } from "./position.mode";
+export class Ad extends Model {
+  public id!: number;
+  public type: string;
+  public src: string;
+  public title: string;
+  public description: string;
+  public readonly createdAt!: Date;
+  public readonly updatedAt!: Date;
 }
 
 export default (sequelize: Sequelize) => {
-  Service.init(
+  Ad.init(
     {
       id: {
         type: DataTypes.INTEGER,
+        autoIncrement: false,
         primaryKey: true,
-        autoIncrement: true,
+      },
+      type: {
+        type: DataTypes.STRING,
+      },
+      src: {
+        type: DataTypes.STRING,
       },
       title: {
         type: DataTypes.STRING,
       },
-      titleEn: {
-        type: DataTypes.STRING,
-      },
-      icon: {
-        type: DataTypes.STRING,
-      },
-      color: {
+      description: {
         type: DataTypes.STRING,
       },
     },
     {
       sequelize,
-      modelName: "service",
-      tableName: "services",
+      modelName: "ad",
+      tableName: "ads",
       createdAt: "created_date",
       updatedAt: "updated_date",
     }

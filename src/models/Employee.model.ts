@@ -12,6 +12,7 @@ export class Employee extends Model {
   public is_director!: boolean;
   public position_id!: number;
   public postion: Position;
+  public service_id?: number;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 }
@@ -47,6 +48,10 @@ export default (sequelize: Sequelize) => {
       },
       position_id: {
         type: DataTypes.INTEGER,
+      },
+      service_id: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
       },
     },
     {
