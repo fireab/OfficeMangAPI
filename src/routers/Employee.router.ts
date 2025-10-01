@@ -8,7 +8,10 @@ let router: Router = Router();
 router
   .post("/create", EmployeeController.create)
   .get("/", EmployeeController.findMany)
+  .get("/sort", EmployeeController.findManyOrdered)
+
   .get("/service", ServiceController.getAllServices)
+
   .post("/ad", upload.single("image"), AdController.addAD)
   .get("/ad/", AdController.findAll)
   .delete("/ad/:id", AdController.delete)

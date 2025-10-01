@@ -93,6 +93,8 @@ class AdController {
 
   static async findAll(req: Request, res: Response, next: NextFunction) {
     try {
+      console.log("Fetching all ads...");
+
       const data = await Ad.findAll();
 
       // Format the data

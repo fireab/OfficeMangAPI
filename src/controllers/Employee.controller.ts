@@ -69,6 +69,74 @@ class EmployeeController {
       .catch((error: any) => next(error));
   }
 
+  static findManyOrdered(request: Request, response: Response, next: Function) {
+    EmployeeService.findMany(request.body, [], ["position"])
+      .then((result: Employee[]) => {
+        function transformEmployees(employees: any[]) {
+          return employees.map((emp) => {
+            let teamId: number | null = 0;
+
+            if (emp.position?.parent_id && emp.position.parent_id !== 0) {
+              const parentEmp = employees.find(
+                (e) => e.position_id === emp.position.parent_id
+              );
+
+              teamId = parentEmp ? parentEmp.id : 0;
+            }
+
+            return {
+              id: emp.id,
+              name: emp.amharic_name,
+              // oromic_name: emp.oromic_name,
+              // english_name: emp.english_name,
+              // oromic_position: emp.position?.name_or || null,
+              position: emp.position?.name_am || null,
+              english_position: emp.position?.name_en || null,
+              avatar: `http://localhost:2000/public/${emp.path}`,
+              // office: emp.office,
+              office: emp.office,
+              team_id: teamId,
+              is_director: emp.is_director,
+              // has_sub: emp.position?.has_sub,
+              // service_id: emp.service_id,
+            };
+          });
+        }
+
+        type Person = {
+          id: number;
+          name: string;
+          position: string;
+          english_position: string;
+          avatar: string;
+          office: string;
+          team_id: number;
+          is_director: boolean | null;
+        };
+
+        function sortByTeamAndId(data: Person[]): Person[] {
+          return data.sort((a, b) => {
+            if (a.team_id === b.team_id) {
+              return a.id - b.id; // secondary sort by id
+            }
+            return a.team_id - b.team_id; // primary sort by team_id
+          });
+        }
+
+        // change to to proper json the result first
+        let res = result.map((item: Employee) => {
+          const plain = item.toJSON(); // convert Sequelize model to plain JSON
+          return plain;
+        });
+
+        const transormData = transformEmployees(res);
+        const sortedData = sortByTeamAndId(transormData);
+
+        response.send(sortedData);
+      })
+      .catch((error: any) => next(error));
+  }
+
   /**
    *
    * @param query

@@ -47,3 +47,11 @@ export const ConvertToPascalCase = (word: string) =>
 
 export const ConvertToSnakeCase = (name: string): string =>
   name.replace(/([a-z])([A-Z])/g, "$1_$2").toLowerCase();
+
+export async function getPublicIp(): Promise<string> {
+  // free endpoints: api.ipify.org, ifconfig.co, icanhazip.com etc.
+  const res = await fetch("https://api.ipify.org?format=json");
+  if (!res.ok) throw new Error("Failed to fetch IP");
+  const data = await res.json(); // { ip: "1.2.3.4" }
+  return data.ip;
+}
