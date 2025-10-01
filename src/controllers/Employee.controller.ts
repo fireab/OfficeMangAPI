@@ -92,7 +92,7 @@ class EmployeeController {
               // oromic_position: emp.position?.name_or || null,
               position: emp.position?.name_am || null,
               english_position: emp.position?.name_en || null,
-              avatar: `http://localhost:2000/public/${emp.path}`,
+              avatar: `http://192.168.1.13:2000/public/${emp.path}`,
               // office: emp.office,
               office: emp.office,
               team_id: teamId,
