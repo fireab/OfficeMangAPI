@@ -131,8 +131,38 @@ class EmployeeController {
 
         const transormData = transformEmployees(res);
         const sortedData = sortByTeamAndId(transormData);
+        const selectedEmployees = [];
+        selectedEmployees.push(sortedData.filter((data) => data.id === 1));
+        selectedEmployees.push(sortedData.filter((data) => data.id === 2));
+        selectedEmployees.push(sortedData.filter((data) => data.id === 25));
+        selectedEmployees.push(sortedData.filter((data) => data.id === 20));
+        selectedEmployees.push(sortedData.filter((data) => data.id === 26));
+        selectedEmployees.push(sortedData.filter((data) => data.id === 10));
+        selectedEmployees.push(sortedData.filter((data) => data.id === 17));
+        selectedEmployees.push(sortedData.filter((data) => data.id === 9));
+        selectedEmployees.push(sortedData.filter((data) => data.id === 35));
 
-        response.send(sortedData);
+        selectedEmployees.push(sortedData.filter((data) => data.id === 36));
+        selectedEmployees.push(sortedData.filter((data) => data.id === 11));
+        selectedEmployees.push(sortedData.filter((data) => data.id === 29));
+        selectedEmployees.push(sortedData.filter((data) => data.id === 19));
+        selectedEmployees.push(sortedData.filter((data) => data.id === 28));
+        selectedEmployees.push(sortedData.filter((data) => data.id === 4));
+        selectedEmployees.push(sortedData.filter((data) => data.id === 37));
+        selectedEmployees.push(sortedData.filter((data) => data.id === 12));
+        selectedEmployees.push(sortedData.filter((data) => data.id === 30));
+        selectedEmployees.push(sortedData.filter((data) => data.id === 27));
+        selectedEmployees.push(sortedData.filter((data) => data.id === 35));
+        selectedEmployees.push(sortedData.filter((data) => data.id === 16));
+        selectedEmployees.push(sortedData.filter((data) => data.id === 3));
+        selectedEmployees.push(sortedData.filter((data) => data.id === 34));
+        selectedEmployees.push(sortedData.filter((data) => data.id === 18));
+        selectedEmployees.push(sortedData.filter((data) => data.id === 24));
+        selectedEmployees.push(sortedData.filter((data) => data.id === 31));
+        selectedEmployees.push(sortedData.filter((data) => data.id === 13));
+
+        // response.send(sortedData);
+        response.send(selectedEmployees);
       })
       .catch((error: any) => next(error));
   }
